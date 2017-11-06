@@ -1,0 +1,38 @@
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'docker'
+
+Vagrant.configure(2) do |config|
+    config.vm.provider "docker" do |d|
+        d.force_host_vm = false
+    end
+
+    config.vm.box = "tknerr/baseimage-ubuntu-16.04"
+    config.vm.network "forwarded_port", host: 2222, guest: 22, id: "ssh"
+    config.vm.network "forwarded_port", host: 8000, guest: 80
+    config.vm.network "forwarded_port", host: 9001, guest: 9000
+    config.vm.synced_folder ".", "/var/www/html/Leka"
+    config.ssh.host = "127.0.0.1"
+    config.ssh.port = 2222
+
+    config.vm.provision "shell" do |s|
+        ssh_pub_key = File.readlines("#{Dir.home}/.ssh/id_rsa.pub").first.strip
+        s.inline = <<-SHELL
+            echo "exit 0" | sudo tee /usr/sbin/policy-rc.d > /dev/null
+            if ! grep -q '#{ssh_pub_key}' /home/vagrant/.ssh/authorized_keys; then
+                echo '\n#{ssh_pub_key}' >> /home/vagrant/.ssh/authorized_keys
+            fi
+            sudo sed -i '/tty/!s/mesg n/tty -s \\&\\& mesg n/' /root/.profile
+        SHELL
+    end
+
+    config.vm.provision :host_shell, run: "always" do |host_shell|
+        host_shell.inline = "echo 'Please wait. This may take a few centuries...' && cd salt && salt-ssh frontend.leka.local state.highstate"
+    end
+
+    #config.vm.provision "shell", run: "always" do |s|
+    #    s.inline = <<-SHELL
+    #        /etc/init.d/apache2 restart
+    #        /etc/init.d/memcached restart
+    #	    SHELL
+    #end
+
+end

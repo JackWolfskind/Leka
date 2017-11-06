@@ -1,0 +1,9 @@
+salt-call:
+  config_dir: .
+  local: true
+
+salt-ssh:
+  config_dir: .
+  wipe_ssh: false
+  state_output: changes
+

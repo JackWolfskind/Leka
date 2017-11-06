@@ -1,0 +1,31 @@
+
+file_roots:
+  base:
+    - srv/salt/base
+
+# logging
+log_level_logfile: info
+
+# minion options, e.g. URL/proxy settings
+ssh_minion_opts:
+  log_level_logfile: info
+  # HTTP client backend (can be urllib2, tornado[default], requests)
+  # Tornado does not support proxies unless pycurl is installed
+  #backend: requests
+  # requests_lib is deprecated and "backend: requests" should be used but this won't work,
+  # see https://github.com/saltstack/salt/issues/33849
+  requests_lib: True
+  # Alternatively, we could set proxy settings globally for all outgoing requests like this:
+  #proxy_host: webproxy.ps-intern.de
+  #proxy_port: 3128
+
+
+# directories
+cachedir: /home/cziermann/.cache/salt
+pki_dir: /home/cziermann/.config/salt/pki
+log_file: /home/cziermann/.cache/salt/salt-ssh.log
+ssh_log_file: /home/cziermann/.cache/salt/salt-ssh.log
+
+
+# terse output but show changes -> shorter and more well arranged overview
+state_output: changes

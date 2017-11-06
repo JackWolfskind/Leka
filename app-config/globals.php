@@ -1,4 +1,5 @@
 <?php
+use Symfony\Component\HttpKernel\HttpKernel;
 
 $container = [];
 
@@ -28,6 +29,16 @@ $container["routeCollection"] = function () {
 $container["route"] = function () {
     $route = new Route();
     return $route;
+};
+
+
+$container[HttpKernel::class] = function ($container) {
+    return new HttpKernel(
+        $container[EventDispatcher::class],
+        $container[ControllerResolver::class],
+        $container[RequestStack::class],
+        $container[ArgumentResolver::class]
+    );
 };
 
 return $container;

@@ -1,0 +1,5 @@
+frontend.leka.local:
+  host: localhost
+  port: 2222
+  user: vagrant
+  sudo: True

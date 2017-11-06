@@ -1,0 +1,23 @@
+{
+    "name": "the-guys/leka",
+    "description": "Teacher Calendar App",
+    "authors": [
+        {
+            "name": "Christian Ziermann",
+            "email": "cziermann@mailbox.org"
+        }
+    ],
+    "require": {
+        "twig/twig": "^1.24",
+        "symfony/asset": "^3.2",
+        "symfony/filesystem": "^3.2",
+        "symfony/routing": "^3.2",
+        "php": ">=5.5.9",
+        "pimple/pimple": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Gso\\Leka\\": "web/src/php"
+        }
+    }
+}

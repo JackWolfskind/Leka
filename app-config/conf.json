@@ -1,0 +1,7 @@
+{
+    "credentials": {
+        "ldap" : {
+            "host" : "ldap-dc1.gso"       
+        }
+    }
+}

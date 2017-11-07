@@ -1,4 +1,6 @@
 /web/vendor/
+/web/cache/
+!/web/cache/.gitkeep
 /web/node_modules/
 /nbproject/
 /web/.vagrant/

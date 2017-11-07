@@ -9,7 +9,6 @@ $app->get('/[{name}]', function (Request $request, Response $response, array $ar
     // Sample log message
     $this->logger->info("Slim-Skeleton '/' route");
     // Render index view
-    $args["text"] = "test";
     return $this->renderer->render($response, 'index.twig', $args);
 });
 

@@ -3,6 +3,7 @@
 	<name>java</name>
 	<comment></comment>
 	<projects>
+		<project>Leka</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -20,4 +21,17 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.m2e.core.maven2Nature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>app-config</name>
+			<type>2</type>
+			<locationURI>CONFIG_PATH</locationURI>
+		</link>
+	</linkedResources>
+	<variableList>
+		<variable>
+			<name>CONFIG_PATH</name>
+			<value>$%7BPARENT-1-PROJECT_LOC%7D/app-config</value>
+		</variable>
+	</variableList>
 </projectDescription>

@@ -33,7 +33,7 @@ php:
 
   file.managed:
     - name: /etc/php5/apache2/conf.d/95-tools.ini
-    - source: salt://templates/dev/php/websites/tools/php5/conf.d/95-tools.ini
+    - source: salt://templates/php/tools/php5/conf.d/95-tools.ini
     - user: root
     - group: root
     - mode: 644
@@ -41,7 +41,7 @@ php:
 php-xdebug-ini:
   file.managed:
     - name: /etc/php5/apache2/conf.d/95-xdebug.ini
-    - source: salt://templates/dev/php/websites/tools/php5/conf.d/95-xdebug.ini
+    - source: salt://templates/php/tools/php5/conf.d/95-xdebug.ini
     - user: root
     - group: root
     - mode: 644

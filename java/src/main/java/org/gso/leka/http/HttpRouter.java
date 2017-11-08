@@ -7,29 +7,33 @@ import fi.iki.elonen.NanoHTTPD.IHTTPSession;
 import fi.iki.elonen.NanoHTTPD.Response;
 import fi.iki.elonen.NanoHTTPD.Response.Status;
 
-public class HttpRouter implements IHttpHandler {
+public class HttpRouter extends HttpHandler {
+
+	public HttpRouter() {
+		super("\\");
+	}
 	
-	HashMap<String, IHttpHandler> handler = new HashMap<String, IHttpHandler>();
-	
+	public HttpRouter(String route) {
+		super(route);
+	}
+
+	HashMap<String, IHttpHandler> handler = new HashMap<String, IHttpHandler>(); 
+
 	public Response Handle(IHTTPSession session, String route) {
-		
-		IHttpHandler current = handler.get(route);
+		String[] routen = route.split("\\", 1);
+		IHttpHandler current = handler.get(routen[0]);
 		if (current == null) {
 			Response resp = NanoHTTPD.newFixedLengthResponse("Route not found");
 			resp.setStatus(Status.NOT_FOUND);
 			return resp;
 		}
-		return current.Handle(session, route);
+		return current.Handle(session, routen[1]);
 	}
 
-	public String getRoute() {
-		return null;
-	}
-	
 	public void registerHandler(IHttpHandler handler) {
 		this.handler.put(handler.getRoute(), handler);
 	}
-	
+
 	public void deregisterHandler(IHttpHandler handler) {
 		this.handler.remove(handler.getRoute());
 	}

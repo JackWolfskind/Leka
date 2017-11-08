@@ -20,7 +20,9 @@ public class LDAPHelper {
 
 		String ldapURL = new StringBuilder().append("ldap://")
 				.append(AppConfig.getConfig().getFromPath("credentials/ldap/host"))
-				.append(AppConfig.getConfig().getFromPath("credentials/ldap/port")).toString();
+				.append(':')
+				.append(AppConfig.getConfig().getFromPath("credentials/ldap/port"))
+				.toString();
 
 		env.put(Context.PROVIDER_URL, ldapURL);
 		try {

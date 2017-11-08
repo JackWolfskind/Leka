@@ -3,6 +3,7 @@
 	<name>java</name>
 	<comment></comment>
 	<projects>
+		<project>Leka</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -24,7 +25,13 @@
 		<link>
 			<name>app-config</name>
 			<type>2</type>
-			<location>C:/Users/lukas/git/Leka/app-config</location>
+			<locationURI>CONFIG_PATH</locationURI>
 		</link>
 	</linkedResources>
+	<variableList>
+		<variable>
+			<name>CONFIG_PATH</name>
+			<value>$%7BPARENT-1-PROJECT_LOC%7D/app-config</value>
+		</variable>
+	</variableList>
 </projectDescription>

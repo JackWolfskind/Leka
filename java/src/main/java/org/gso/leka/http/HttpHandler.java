@@ -3,14 +3,22 @@ package org.gso.leka.http;
 import fi.iki.elonen.NanoHTTPD.IHTTPSession;
 import fi.iki.elonen.NanoHTTPD.Response;
 
-public class HttpHandler implements IHttpHandler {
-
-	public Response Handle(IHTTPSession session, String route) {
-		return null;
+public abstract class HttpHandler implements IHttpHandler {
+	
+	private String route;
+	
+	public HttpHandler(String route) {
+		this.route = route;
 	}
 
+	public abstract Response Handle(IHTTPSession session, String route);
+
 	public String getRoute() {
-		return null;
+		return route;
+	}
+	
+	public void setRoute(String route) {
+		this.route = route;
 	}
 
 }

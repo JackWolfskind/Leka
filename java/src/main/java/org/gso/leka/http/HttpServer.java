@@ -8,6 +8,8 @@ import fi.iki.elonen.NanoHTTPD.Response.Status;
 public class HttpServer extends NanoHTTPD {
 	
 	public final char URI_SEPERATOR = '\\';
+	
+	private HttpRouter root = new HttpRouter();
 
 	public HttpServer(int port) throws IOException {
 		super(port);
@@ -22,13 +24,16 @@ public class HttpServer extends NanoHTTPD {
 	public Response serve(IHTTPSession session) {
 		Response response;
 		if (session.getRemoteIpAddress().equals("127.0.0.1")) {
-			response = newFixedLengthResponse(session.getUri());
-			response.setStatus(Status.OK);
+			response = root.Handle(session, session.getUri().substring(1));
 		} else {
 			response = newFixedLengthResponse(Status.UNAUTHORIZED.getDescription());
 			response.setStatus(Status.UNAUTHORIZED);
 		}
 		return response;
+	}
+	
+	public HttpRouter getRouter() {
+		return root;
 	}
 
 }

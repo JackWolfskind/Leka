@@ -16,16 +16,25 @@ public class LDAPHelper {
 	public LDAPHelper() throws NamingException {
 		Hashtable<String, Object> env = new Hashtable<String, Object>();
 		env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
-		env.put(Context.PROVIDER_URL, "ldap://ldap-dc1.gso:389");
+		// env.put(Context.PROVIDER_URL, "ldap://ldap-dc1.gso:389");
+
+		String ldapURL = new StringBuilder().append("ldap://")
+				.append(AppConfig.getConfig().getFromPath("credentials/ldap/host"))
+				.append(':')
+				.append(AppConfig.getConfig().getFromPath("credentials/ldap/port"))
+				.toString();
+
+		env.put(Context.PROVIDER_URL, ldapURL);
 		try {
 			ldapCtx = new InitialContext(env);
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
-		
+
 		NamingEnumeration list = ldapCtx.list("ou=klassen,ou=gruppen,ou=benutzer,dc=gso-neu");
 		DirContext klasse = (DirContext) ldapCtx.lookup("cn=fia51,ou=klassen,ou=gruppen,ou=benutzer,dc=gso-neu");
-		//list = ldapCtx.getAttributes("cn=fia51,ou=klassen,ou=gruppen,ou=benutzer,dc=gso-neu").getAll();
+		// list =
+		// ldapCtx.getAttributes("cn=fia51,ou=klassen,ou=gruppen,ou=benutzer,dc=gso-neu").getAll();
 		while (list.hasMore()) {
 			NameClassPair nc;
 			nc = (NameClassPair) list.next();

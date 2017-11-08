@@ -7,9 +7,9 @@ $container = $app->getContainer();
 // view renderer
 $container['renderer'] = function ($c) {
         $settings = $c->get('settings')['renderer'];
-        $view = new \Slim\Views\Twig($settings['template_path'], [
-        'cache' => $settings['cache_path']
-    ]);
+        $view = new \Slim\Views\Twig($settings['template_path'] #[
+        #'cache' => $settings['cache_path']
+    );
     
     // Instantiate and add Slim specific extension
     $basePath = rtrim(str_ireplace('index.php', '', $c['request']->getUri()->getBasePath()), '/');

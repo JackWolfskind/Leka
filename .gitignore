@@ -6,3 +6,4 @@
 /web/.vagrant/
 /logs/*
 !/logs/README.md
+/web/nbproject/private/

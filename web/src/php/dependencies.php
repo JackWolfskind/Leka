@@ -1,17 +1,18 @@
 <?php
 
+use Leka\Middleware\LoggerMiddleware;
 // DIC configuration
 
 $container = $app->getContainer();
 
 // view renderer
 $container['renderer'] = function ($c) {
-        $settings = $c->get('settings')['renderer'];
-        $view = new \Slim\Views\Twig($settings['template_path'], [
+    $settings = $c->get('settings')['renderer'];
+    $view = new \Slim\Views\Twig($settings['template_path'], [
         'cache' => $settings['cache_path'],
         'debug' => true
     ]);
-    
+
     // Instantiate and add Slim specific extension
     $basePath = rtrim(str_ireplace('index.php', '', $c['request']->getUri()->getBasePath()), '/');
     $view->addExtension(new \Slim\Views\TwigExtension($c['router'], $basePath));
@@ -26,4 +27,10 @@ $container['logger'] = function ($c) {
     $logger->pushProcessor(new Monolog\Processor\UidProcessor());
     $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
     return $logger;
+};
+
+// logger-middleware
+$container[LoggerMiddleware::class] = function ($c) {
+    $loggerMiddleware = new LoggerMiddleware($c['logger']);
+    return $loggerMiddleware;
 };

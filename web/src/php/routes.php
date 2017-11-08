@@ -10,7 +10,7 @@ use Slim\Http\Response;
 
 $app->get('/', function (Request $request, Response $response, array $args) {
 
-    // Render index view
+// Render index view
     return $this->renderer->render($response, 'index.twig', $args);
-})->add(new LoggerMiddleware());
+})->add($container[LoggerMiddleware::class]);
 

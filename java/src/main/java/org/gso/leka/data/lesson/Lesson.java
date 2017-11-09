@@ -65,22 +65,23 @@ public class Lesson {
 	public static Lesson load(EntityManager manager, Date date, String TeacherID, int BlockID) {
 		String tableName = Lesson.class.getAnnotation(Table.class).name();
 		try {
-			String teacherIDColumn = Lesson.class.getField("teacherID").getAnnotation(Column.class).name();
-			String blockIDColumn =Lesson.class.getField("blockID").getAnnotation(Column.class).name();
-			String dateColumn = Lesson.class.getField("date").getAnnotation(Column.class).name();
+			String teacherIDColumn = Lesson.class.getDeclaredField("teacherID").getAnnotation(Column.class).name();
+			String blockIDColumn =Lesson.class.getDeclaredField("blockID").getAnnotation(Column.class).name();
+			String dateColumn = Lesson.class.getDeclaredField("date").getAnnotation(Column.class).name();
 		
 			CriteriaBuilder builder = manager.getCriteriaBuilder();
 			CriteriaQuery<Lesson> query = builder.createQuery(Lesson.class);
 			Root<Lesson> from = query.from(Lesson.class);
 			
 			Predicate where = builder.and(
-					builder.equal(from.get(teacherIDColumn), TeacherID),
-					builder.equal(from.get(blockIDColumn), BlockID),
-					builder.equal(from.get(dateColumn), date)
+					builder.equal(from.get("teacherID"), TeacherID),
+					builder.equal(from.get("blockID"), BlockID),
+					builder.equal(from.get("date"), date)
 					);
 			query = query.select(from).where(where);
 			
-			manager.createQuery(query).getResultList();
+			List<Lesson> result = manager.createQuery(query).getResultList();
+			
 		} catch (NoSuchFieldException | SecurityException e) {
 			e.printStackTrace();
 		}

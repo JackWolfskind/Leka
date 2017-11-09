@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.gso.leka.data.student.Student;
 
+import sun.security.provider.certpath.ldap.LDAPCertStoreHelper;
+
 public class SchoolClass {
 	private String ID;
 	private List<Student> students;

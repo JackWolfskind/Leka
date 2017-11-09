@@ -1,9 +1,7 @@
-package org.gso.leka.data.schoolClass;
+package org.gso.leka.data.grade;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-
+import org.gso.leka.Main;
 import org.gso.leka.http.HttpHandler;
 import org.gso.leka.http.HttpServer;
 
@@ -15,21 +13,18 @@ import fi.iki.elonen.NanoHTTPD.Response;
 import fi.iki.elonen.NanoHTTPD.Response.Status;
 
 
-public class SchoolClassListHandler extends HttpHandler {
+public class GradeReadHandler extends HttpHandler {
 	
-	public SchoolClassListHandler() {
-		super("list");
+	public GradeReadHandler() {
+		super("read");
 	}
 
 	@Override
 	public Response Handle(IHTTPSession session, String route) {
 		Map<String, JsonElement> parameters = parseParameters(session.getParameters().get("parameters").get(0));
-		List<String> classIDs = new ArrayList<>();
-		for(SchoolClass sc : SchoolClass.getAll()) {
-			classIDs.add(sc.getID());
-		}
 		
-		Response reply = HttpServer.newFixedLengthResponse(new Gson().toJson(classIDs));
+		//Response reply = HttpServer.newFixedLengthResponse(new Gson().toJson(schoolClass));
+		Response reply = HttpServer.newFixedLengthResponse("");
 		
 		reply.setStatus(Status.OK);
 		return reply;

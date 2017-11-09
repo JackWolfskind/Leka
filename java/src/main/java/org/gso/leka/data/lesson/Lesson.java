@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.gso.leka.data.block.Block;
@@ -61,20 +62,28 @@ public class Lesson {
 		return manager.find(Lesson.class, ID);
 	}
 	
-	public Lesson load(EntityManager manager, Date date, int TeacherID, int BlockID) {
-		String tableName = this.getClass().getAnnotation(Table.class).name();
+	public static Lesson load(EntityManager manager, Date date, String TeacherID, int BlockID) {
+		String tableName = Lesson.class.getAnnotation(Table.class).name();
 		try {
-			String teacherIDColumn = this.getClass().getField("TeacherID").getAnnotation(Column.class).name();
-			String blockIDColumn = this.getClass().getField("BlockID").getAnnotation(Column.class).name();
-			String dateColumn = this.getClass().getField("date").getAnnotation(Column.class).name();
+			String teacherIDColumn = Lesson.class.getField("teacherID").getAnnotation(Column.class).name();
+			String blockIDColumn =Lesson.class.getField("blockID").getAnnotation(Column.class).name();
+			String dateColumn = Lesson.class.getField("date").getAnnotation(Column.class).name();
+		
+			CriteriaBuilder builder = manager.getCriteriaBuilder();
+			CriteriaQuery<Lesson> query = builder.createQuery(Lesson.class);
+			Root<Lesson> from = query.from(Lesson.class);
 			
+			Predicate where = builder.and(
+					builder.equal(from.get(teacherIDColumn), TeacherID),
+					builder.equal(from.get(blockIDColumn), BlockID),
+					builder.equal(from.get(dateColumn), date)
+					);
+			query = query.select(from).where(where);
+			
+			manager.createQuery(query).getResultList();
 		} catch (NoSuchFieldException | SecurityException e) {
 			e.printStackTrace();
 		}
-		
-		CriteriaBuilder builder = manager.getCriteriaBuilder();
-		CriteriaQuery<Lesson> query = builder.createQuery(Lesson.class);
-		Root<Lesson> from = query.from(Lesson.class);
 		return null;
 	}
 	

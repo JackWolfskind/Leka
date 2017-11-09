@@ -21,9 +21,10 @@ namespace Leka\Controller;
 class BaseControlller {
 
     protected $renderer;
-
-    public function __construct(\Slim\Views\Twig $renderer) {
+    protected $logger;
+    public function __construct(\Slim\Views\Twig $renderer, Monolog\Logger $logger) {
         $this->renderer = $renderer;
+        $this->logger = $logger;
     }
 
 }

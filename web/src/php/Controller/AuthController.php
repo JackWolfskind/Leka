@@ -18,10 +18,10 @@ use Slim\Http\Response;
  */
 class AuthController extends BaseControlller {
 
-    public function login(Response $request, Request $response, $args) {
-        // Render index view
+    public function login($request, $response, $args) {
         $password = $request->getParam("password");
         $username = $request->getParam("username");
+        $lastPath = $request->getParam("last_path");
         #$newPass = iconv( 'UTF-8', 'UTF-16LE', $password );
         $ldapconn = ldap_connect("ldap-dc1.gso") or die("Could not connect to LDAP server.");
         ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3);
@@ -33,6 +33,12 @@ class AuthController extends BaseControlller {
         $link_id = ldap_bind($ldapconn, $user_dn, $password);
         if ($link_id) {
             $_SESSION["teacher"] = $username;
+            $this->logger->info($lastPath);
+            return $response->withRedirect($lastPath);
+        } else {
+            $body = $response->getBody();
+            $body->write('Authentication Failed.');
+            return $response;
         }
     }
 

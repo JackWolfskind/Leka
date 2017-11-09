@@ -59,15 +59,18 @@ $container["service"] = function () {
 
 $container[\Leka\Controller\IndexController::class] = function($c) {
     $renderer = $c->get("renderer"); // retrieve the 'renderer' from the container
-    return new IndexController($renderer);
+    $logger = $c->get("logger");
+    return new IndexController($renderer, $logger);
 };
 
 $container[\Leka\Controller\AuthController::class] = function($c) {
     $renderer = $c->get("renderer"); // retrieve the 'renderer' from the container
-    return new AuthController($renderer);
+    $logger = $c->get("logger");
+    return new AuthController($renderer, $logger);
 };
 
 $container[\Leka\Controller\ServiceController::class] = function($c) {
     $renderer = $c->get("renderer"); // retrieve the 'renderer' from the container
-    return new ServiceController($renderer);
+    $logger = $c->get("logger");
+    return new ServiceController($renderer, $logger);
 };

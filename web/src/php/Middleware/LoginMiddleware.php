@@ -32,7 +32,8 @@ class LoginMiddleware {
             if (!isset($_SESSION['teacher'])) {
 
                 $response = $this->renderer->render($response, "anmeldung.twig", [
-                    "loginpath" => "/login"
+                    "loginpath" => "/login",
+                    "last_path" => $request->getUri()
                 ]);
             } else {
                 $response = $next($request, $response);

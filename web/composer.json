@@ -22,8 +22,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Gso\\Leka\\": "web/src/php",
-            "Tests\\": "web/tests/"
+            "Leka\\": "src/php/",
+            "Tests\\": "tests/"
         }
     },
     "config": {

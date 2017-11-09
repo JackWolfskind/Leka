@@ -1,0 +1,17 @@
+<Configuration status="debug" strict="true" name="XMLConfigTest"
+	packages="org.apache.logging.log4j.test">
+
+	<Appenders>
+		<Appender type="Console" name="STDERROR" level="info">
+			<Layout type="PatternLayout" pattern="%m MDC%X%n" />
+		</Appender>
+	</Appenders>
+
+	<Loggers>
+		<Logger name="root" level="info"
+			additivity="false">
+			<AppenderRef ref="STDOUT" />
+		</Logger>
+	</Loggers>
+
+</Configuration>

@@ -8,3 +8,4 @@
 !/logs/README.md
 /java/target/
 /.project
+/web/src/logs/app.log

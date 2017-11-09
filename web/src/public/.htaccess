@@ -18,4 +18,19 @@
 
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteRule ^ index.php [QSA,L]
+  #-------- LDAP auth ---------------------
+	AuthType Basic
+	AuthName "Bitte authentifizieren" 
+	AuthBasicProvider ldap
+	AuthzLDAPAuthoritative On
+        AuthLDAPURL "ldap://ldap-dc1.gso"
+	# AuthLDAPBindDN und AuthLDAPBindPassword wird benoetigt, da
+	# keine anonyme suche im LDAP erlaubt ist.
+	# "AuthLDAPGroupAttributeIsDN" muss auf "Off" gesetzt sein,
+	# sonst wird in der Mitgliederliste
+	# immer nach dem vollständigen DN des Benutzers gesucht
+	# und nicht nur nach der uid
+	#AuthLDAPGroupAttributeIsDN Off
+	AuthLDAPGroupAttribute memberUid
+	#-------- LDAP auth ---------------------
 </IfModule>

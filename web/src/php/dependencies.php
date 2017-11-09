@@ -1,5 +1,8 @@
 <?php
 
+use Leka\Controller\AuthController;
+use Leka\Controller\IndexController;
+use Leka\Controller\ServiceController;
 use Leka\Middleware\LoggerMiddleware;
 use Leka\Middleware\LoginMiddleware;
 use Monolog\Handler\StreamHandler;
@@ -52,4 +55,19 @@ $container["service"] = function () {
         'format' => "json",
     ]);
     return $service;
+};
+
+$container[\Leka\Controller\IndexController::class] = function($c) {
+    $renderer = $c->get("renderer"); // retrieve the 'renderer' from the container
+    return new IndexController($renderer);
+};
+
+$container[\Leka\Controller\AuthController::class] = function($c) {
+    $renderer = $c->get("renderer"); // retrieve the 'renderer' from the container
+    return new AuthController($renderer);
+};
+
+$container[\Leka\Controller\ServiceController::class] = function($c) {
+    $renderer = $c->get("renderer"); // retrieve the 'renderer' from the container
+    return new ServiceController($renderer);
 };

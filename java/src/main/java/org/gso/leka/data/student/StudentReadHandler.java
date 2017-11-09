@@ -2,6 +2,7 @@ package org.gso.leka.data.student;
 
 import java.util.Map;
 import org.gso.leka.Main;
+import org.gso.leka.data.schoolClass.SchoolClass;
 import org.gso.leka.http.HttpHandler;
 import org.gso.leka.http.HttpServer;
 
@@ -21,12 +22,19 @@ public class StudentReadHandler extends HttpHandler {
 
 	@Override
 	public Response Handle(IHTTPSession session, String route) {
-		Map<String, JsonElement> parameters = parseParameters(session.getParameters().get("parameters").get(0));
-		Student schoolClass = Student.get(parameters.get("id").getAsString());
+		Map<String, JsonElement> parameters = parseParameters(session.getInputStream());
+		Response reply;
 		
-		Response reply = HttpServer.newFixedLengthResponse(new Gson().toJson(schoolClass));
-		
-		reply.setStatus(Status.OK);
+		if (parameters.containsKey("id")) {
+			Student student = Student.get(parameters.get("id").getAsString());
+
+			reply = HttpServer.newFixedLengthResponse(new Gson().toJson(student));
+			reply.setStatus(Status.OK);
+		} else {
+			reply = HttpServer.newFixedLengthResponse(Status.BAD_REQUEST.getDescription() + " - No ID Provided");
+			reply.setStatus(Status.BAD_REQUEST);
+		}
+
 		return reply;
 	}
 

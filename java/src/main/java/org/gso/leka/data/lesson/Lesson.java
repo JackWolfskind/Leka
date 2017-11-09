@@ -1,6 +1,7 @@
 package org.gso.leka.data.lesson;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,8 +27,8 @@ public class Lesson {
 
 	@Column(name = "s_datum")
 	private Date date;
-	
-	@Column(name = "s_thema", columnDefinition="text")
+
+	@Column(name = "s_thema", columnDefinition = "text")
 	private String topic;
 
 	@Column(name = "s_lehrer")
@@ -44,10 +45,10 @@ public class Lesson {
 	private int blockID;
 	@Transient
 	private Block block;
-	
+
 	@Column(name = "s_freigabe")
 	private String permission;
-	
+
 	public void save(EntityManager manager) {
 		manager.getTransaction().begin();
 		try {
@@ -57,37 +58,34 @@ public class Lesson {
 			manager.getTransaction().rollback();
 		}
 	}
-	
+
 	public Lesson load(EntityManager manager, int ID) {
 		return manager.find(Lesson.class, ID);
 	}
-	
-	public static Lesson load(EntityManager manager, Date date, String TeacherID, int BlockID) {
-		String tableName = Lesson.class.getAnnotation(Table.class).name();
-		try {
-			String teacherIDColumn = Lesson.class.getDeclaredField("teacherID").getAnnotation(Column.class).name();
-			String blockIDColumn =Lesson.class.getDeclaredField("blockID").getAnnotation(Column.class).name();
-			String dateColumn = Lesson.class.getDeclaredField("date").getAnnotation(Column.class).name();
-		
-			CriteriaBuilder builder = manager.getCriteriaBuilder();
-			CriteriaQuery<Lesson> query = builder.createQuery(Lesson.class);
-			Root<Lesson> from = query.from(Lesson.class);
-			
-			Predicate where = builder.and(
-					builder.equal(from.get("teacherID"), TeacherID),
-					builder.equal(from.get("blockID"), BlockID),
-					builder.equal(from.get("date"), date)
-					);
-			query = query.select(from).where(where);
-			
-			List<Lesson> result = manager.createQuery(query).getResultList();
-			
-		} catch (NoSuchFieldException | SecurityException e) {
-			e.printStackTrace();
+
+	public static List<Lesson> load(EntityManager manager, Date date, String TeacherID, int BlockID) {
+		CriteriaBuilder builder = manager.getCriteriaBuilder();
+		CriteriaQuery<Lesson> query = builder.createQuery(Lesson.class);
+		Root<Lesson> from = query.from(Lesson.class);
+
+		List<Predicate> predicates = new ArrayList<>();
+
+		if (date != null) {
+			predicates.add(builder.equal(from.get("date"), date));
 		}
-		return null;
+		if (TeacherID != null) {
+			predicates.add(builder.equal(from.get("teacherID"), TeacherID));
+		}
+		if (BlockID != 0) {
+			predicates.add(builder.equal(from.get("blockID"), BlockID));
+		}
+
+		Predicate where = builder.and(predicates.toArray(new Predicate[predicates.size()]));
+		query = query.select(from).where(where);
+		List<Lesson> result = manager.createQuery(query).getResultList();
+		return result;
 	}
-	
+
 	public static List<Lesson> loadAll(EntityManager manager) {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery<Lesson> query = builder.createQuery(Lesson.class);

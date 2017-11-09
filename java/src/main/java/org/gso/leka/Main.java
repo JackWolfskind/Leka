@@ -1,12 +1,16 @@
 package org.gso.leka;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.naming.NamingException;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.gso.leka.data.schoolClass.SchoolClass;
+import org.gso.leka.data.schoolClass.SchoolClassListHandler;
 import org.gso.leka.data.schoolClass.SchoolClassReadHandler;
 import org.gso.leka.http.HttpRouter;
 import org.gso.leka.http.HttpServer;
@@ -23,11 +27,14 @@ public class Main {
 		
 		HttpRouter ClassRouter = new HttpRouter("schoolclass");
 		ClassRouter.registerHandler(new SchoolClassReadHandler());
+		ClassRouter.registerHandler(new SchoolClassListHandler());
 		
 		server.getRouter().registerHandler(ClassRouter);
 		System.out.println(server.getListeningPort());
-		server.start();
+		
+		List<String> classes = SchoolClass.getIDs();
 		statusCheck();
+		server.start();
 	}
 
 	public static void statusCheck() {

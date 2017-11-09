@@ -1,5 +1,8 @@
 package org.gso.leka.http;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -15,6 +18,20 @@ import fi.iki.elonen.NanoHTTPD.Response;
 public abstract class HttpHandler implements IHttpHandler {
 	
 	private String route;
+	
+	public static Map<String, JsonElement> parseParameters(InputStream is) {
+		InputStreamReader isr = new InputStreamReader(is);
+		try {
+			StringBuilder sb = new StringBuilder();
+			while (isr.ready()) {
+				sb.append((char) isr.read());
+			}
+			if (!sb.toString().isEmpty()) return parseParameters(sb.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	public static Map<String, JsonElement> parseParameters(String json) {
 		Map<String, JsonElement> reply = new HashMap<>();

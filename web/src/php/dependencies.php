@@ -7,6 +7,7 @@ use Monolog\Logger;
 use Monolog\Processor\UidProcessor;
 use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
+
 // DIC configuration
 
 $container = $app->getContainer();
@@ -43,4 +44,12 @@ $container[LoggerMiddleware::class] = function ($c) {
 $container[LoginMiddleware::class] = function ($c) {
     $loginMiddleware = new LoginMiddleware($c['renderer']);
     return $loginMiddleware;
+};
+
+$container["service"] = function () {
+    $service = new RestClient([
+        'base_url' => "localhost:8080",
+        'format' => "json",
+    ]);
+    return $service;
 };

@@ -6,7 +6,7 @@ namespace Leka;
 
 $app->get('/', \Leka\Controller\IndexController::class . ":index")
         ->add($container[\Leka\Middleware\LoggerMiddleware::class])
-        ->add($container[\Leka\Middleware\LoginMiddleware::class])
+        #->add($container[\Leka\Middleware\LoginMiddleware::class])
         ->setName("index");
 $app->post('/login', \Leka\Controller\AuthController::class . ":login")
         ->add($container[\Leka\Middleware\LoggerMiddleware::class])

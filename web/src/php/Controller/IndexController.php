@@ -18,7 +18,22 @@ use Slim\Http\Response;
  */
 class IndexController extends BaseControlller {
 
+    protected $service;
+
+
+    public function __construct(\Slim\Views\Twig $renderer, \Monolog\Logger $logger, $service) {
+        $this->service = $service;
+        parent::__construct($renderer, $logger);
+    }
+    
     public function index($request, $response, $args) {
+        
+        
+        $result = $this->service->get("lesson/list", []);
+        #if ($result->info->http_code == 200) {
+            //var_dump($result->decode_response());
+        #}
+        $args["lessons"] = $result->decode_response();
         return $this->renderer->render($response, 'index.twig', $args);
     }
 

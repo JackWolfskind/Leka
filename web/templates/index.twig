@@ -4,21 +4,64 @@
         <tbody>
             <tr>
                 <td style="transform: rotate(-90deg);">Montag</td>
-                <td width="45%">1<br>2<br>3<br>4<br>5<br></td>
+                <td width="45%">
+                    <table class="greyGridTable">
+                        <tbody>    
+                {% for lesson in lessons  %}
+                    <tr>
+                        <td>{{lesson}}</td>
+                        <td>Lehrer</td>
+                    </tr>
+                {% endfor %}
+                    </tbody>
+                    </table>
+                </td>
                 <td width="2%">&nbsp;</td>    
-                <td width="45%"></td>
+                <td width="45%">
+                    <table class="greyGridTable">
+                {% for klaus in klauses  %}
+                    <tr>
+                        <td>{{klaus}}</td>
+                    </tr>
+                {% endfor %}
+                    </table>
+                </td>
                 <td style="transform: rotate(90deg);">Donnerstag</td>
             </tr>
             <tr>
                 <td style="transform: rotate(-90deg);">Dienstag</td>
-                <td width="45%">1<br>2<br>3<br>4<br>5<br></td>
+                <td width="45%">
+                    <table class="greyGridTable">
+                {% for klaus in klauses  %}
+                    <tr>
+                        <td>{{klaus}}</td>
+                    </tr>
+                {% endfor %}
+                    </table>
+                </td>
                 <td width="2%">&nbsp;</td>    
-                <td width="45%"></td>
+                <td width="45%">
+                    <table class="greyGridTable">
+                {% for klaus in klauses  %}
+                    <tr>
+                        <td>{{klaus}}</td>
+                    </tr>
+                {% endfor %}
+                    </table>
+                </td>
                 <td style="transform: rotate(90deg);">Freitag</td>
             </tr>
             <tr>
                 <td style="transform: rotate(-90deg);">Mittwoch</td>
-                <td width="45%">1<br>2<br>3<br>4<br>5<br></td>
+                <td width="45%">
+                <table class="greyGridTable">
+                {% for klaus in klauses  %}
+                    <tr>
+                        <td>{{klaus}}</td>
+                    </tr>
+                {% endfor %}
+                    </table>
+                </td>
                 <td width="2%">&nbsp;</td>    
                 <td width="45%"></td>
                 <td style="transform: rotate(90deg);">&nbsp;</td>

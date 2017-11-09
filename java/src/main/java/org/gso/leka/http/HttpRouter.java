@@ -12,22 +12,28 @@ public class HttpRouter extends HttpHandler {
 	public HttpRouter() {
 		super("\\");
 	}
-	
+
 	public HttpRouter(String route) {
 		super(route);
 	}
 
-	HashMap<String, IHttpHandler> handler = new HashMap<String, IHttpHandler>(); 
+	HashMap<String, IHttpHandler> handler = new HashMap<String, IHttpHandler>();
 
 	public Response Handle(IHTTPSession session, String route) {
-		String[] routen = route.split("\\", 1);
+		if (route.isEmpty()) {
+			Response resp = NanoHTTPD.newFixedLengthResponse("Route not found");
+			resp.setStatus(Status.NOT_FOUND);
+			return resp;
+		}
+		String[] routen = route.split("/", 2);
 		IHttpHandler current = handler.get(routen[0]);
 		if (current == null) {
 			Response resp = NanoHTTPD.newFixedLengthResponse("Route not found");
 			resp.setStatus(Status.NOT_FOUND);
 			return resp;
 		}
-		return current.Handle(session, routen[1]);
+		
+		return current.Handle(session, routen[routen.length-1]);
 	}
 
 	public void registerHandler(IHttpHandler handler) {

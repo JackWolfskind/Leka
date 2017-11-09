@@ -83,4 +83,12 @@ public class AppConfig {
 		}
 		return current.get(name).getAsString();
 	}
+	
+	public int getIntFromPath(String path) {
+		return Integer.parseInt(getFromPath(path));
+	}
+	
+	public long getLongFromPath(String path) {
+		return Long.parseLong(getFromPath(path));
+	}
 }

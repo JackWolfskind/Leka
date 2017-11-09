@@ -23,11 +23,8 @@ public class SchoolClassListHandler extends HttpHandler {
 
 	@Override
 	public Response Handle(IHTTPSession session, String route) {
-		Map<String, JsonElement> parameters = parseParameters(session.getParameters().get("parameters").get(0));
-		List<String> classIDs = new ArrayList<>();
-		for(SchoolClass sc : SchoolClass.getAll()) {
-			classIDs.add(sc.getID());
-		}
+		//Map<String, JsonElement> parameters = parseParameters(session.getParameters().get("parameters").get(0));
+		List<String> classIDs = SchoolClass.getIDs();
 		
 		Response reply = HttpServer.newFixedLengthResponse(new Gson().toJson(classIDs));
 		

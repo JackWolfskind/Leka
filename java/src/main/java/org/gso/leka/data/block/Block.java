@@ -1,4 +1,4 @@
-package org.gso.leka.data;
+package org.gso.leka.data.block;
 
 
 import java.util.Date;

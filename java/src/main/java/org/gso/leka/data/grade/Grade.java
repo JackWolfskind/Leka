@@ -1,10 +1,13 @@
-package org.gso.leka.data;
+package org.gso.leka.data.grade;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.gso.leka.data.lesson.Lesson;
+import org.gso.leka.data.student.Student;
 
 @Entity
 @Table(name="noten")

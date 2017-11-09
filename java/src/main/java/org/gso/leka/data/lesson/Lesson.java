@@ -1,4 +1,4 @@
-package org.gso.leka.data;
+package org.gso.leka.data.lesson;
 
 import java.sql.Date;
 import java.util.List;
@@ -12,7 +12,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.gso.leka.data.block.Block;
 import org.gso.leka.data.schoolClass.SchoolClass;
+import org.gso.leka.data.teacher.Teacher;
 
 @Entity
 @Table(name = "schulstunde")

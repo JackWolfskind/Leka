@@ -29,7 +29,7 @@ class LoggerMiddleware {
     public function __invoke(Request $request, Response $response, $next) {
         // Sample log message
         try {
-            $this->logger->info("Call: " . $request->getMethod());
+            $this->logger->info("Call: " . $request->getUri());
             $response = $next($request, $response);
             $this->logger->info("Reponse: ", [
                 "code" => $response->getStatusCode(),

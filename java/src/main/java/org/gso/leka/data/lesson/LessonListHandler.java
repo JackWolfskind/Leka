@@ -1,4 +1,4 @@
-package org.gso.leka.data.grade;
+package org.gso.leka.data.lesson;
 
 import java.util.Map;
 
@@ -11,9 +11,9 @@ import fi.iki.elonen.NanoHTTPD.IHTTPSession;
 import fi.iki.elonen.NanoHTTPD.Response;
 
 
-public class GradeListHandler extends HttpHandler {
+public class LessonListHandler extends HttpHandler {
 	
-	public GradeListHandler() {
+	public LessonListHandler() {
 		super("list");
 	}
 

@@ -1,8 +1,5 @@
 package org.gso.leka.data.schoolClass;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Map;
 import org.gso.leka.http.HttpHandler;
 import org.gso.leka.http.HttpServer;
@@ -23,22 +20,18 @@ public class SchoolClassReadHandler extends HttpHandler {
 	@Override
 	public Response Handle(IHTTPSession session, String route) {
 		Response reply;
-		BufferedReader reader = new BufferedReader(new InputStreamReader(session.getInputStream()));
-		try {
-			String body = reader.readLine();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		if (session.getParameters().containsKey("parameters")) {
-			Map<String, JsonElement> parameters = parseParameters(session.getParameters().get("parameters").get(0));
+		Map<String, JsonElement> parameters = parseParameters(session.getInputStream());
+
+		if (parameters.containsKey("id")) {
 			SchoolClass schoolClass = SchoolClass.getClass(parameters.get("id").getAsString());
 
 			reply = HttpServer.newFixedLengthResponse(new Gson().toJson(schoolClass));
 			reply.setStatus(Status.OK);
 		} else {
-			reply = HttpServer.newFixedLengthResponse(Status.BAD_REQUEST.getDescription());
+			reply = HttpServer.newFixedLengthResponse(Status.BAD_REQUEST.getDescription() + " - No ID Provided");
 			reply.setStatus(Status.BAD_REQUEST);
 		}
+
 		return reply;
 	}
 

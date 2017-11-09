@@ -18,7 +18,7 @@ use Slim\Http\Response;
  */
 class ServiceController extends BaseControlller {
 
-    public function get(Response $request, Request $response, $args) {
+    public function get(Response $response, Request $request, $args) {
         // Render index view
         $service = $this->get("service");
         $result = $service->get("test2", ['test' => "TEST"]);

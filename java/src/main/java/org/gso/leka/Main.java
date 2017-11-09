@@ -1,24 +1,49 @@
 package org.gso.leka;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.naming.NamingException;
-import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import org.gso.leka.data.Lesson;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.gso.leka.data.schoolClass.SchoolClassReadHandler;
+import org.gso.leka.http.HttpRouter;
 import org.gso.leka.http.HttpServer;
 
 public class Main {
+	static HttpServer server;
+	
+	public static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("leka");
+	
 	public static void main(String[] args) throws NamingException, IOException {
 		AppConfig.initialise();
-		//new LDAPHelper();
-		List<Lesson> lesson = Lesson.loadAll(Persistence.createEntityManagerFactory("leka").createEntityManager());
+		
+		server = new HttpServer(AppConfig.getConfig().getIntFromPath("httpServer/port"));
+		
+		HttpRouter ClassRouter = new HttpRouter("schoolclass");
+		ClassRouter.registerHandler(new SchoolClassReadHandler());
+		
+		server.getRouter().registerHandler(ClassRouter);
+		System.out.println(server.getListeningPort());
+		server.start();
+		statusCheck();
+	}
+
+	public static void statusCheck() {
+		Logger log = LogManager.getRootLogger();
 		try {
-			new HttpServer(8080).start();
-		} catch (IOException e) {
-			e.printStackTrace();
+			Persistence.createEntityManagerFactory("leka").createEntityManager().createNativeQuery("SELECT 1 from dual");
+		} catch (Exception e) {
+			log.info("Database Connection: ERROR");
+		}
+		
+		log.info("Database Connection: Ok");
+		
+		if (server.isAlive()) {
+			log.info("Http Server: Ok");
+		} else {
+			log.info("Http Server: ERROR");
 		}
 		
 	}

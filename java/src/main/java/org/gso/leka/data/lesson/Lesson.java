@@ -1,24 +1,21 @@
-package org.gso.leka.data;
+package org.gso.leka.data.lesson;
 
 import java.sql.Date;
 import java.util.List;
-import java.util.function.Predicate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Query;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.gso.leka.data.block.Block;
 import org.gso.leka.data.schoolClass.SchoolClass;
-import org.hibernate.annotations.Type;
+import org.gso.leka.data.teacher.Teacher;
 
 @Entity
 @Table(name = "schulstunde")
@@ -65,20 +62,29 @@ public class Lesson {
 		return manager.find(Lesson.class, ID);
 	}
 	
-	public Lesson load(EntityManager manager, Date date, int TeacherID, int BlockID) {
-		String tableName = this.getClass().getAnnotation(Table.class).name();
+	public static Lesson load(EntityManager manager, Date date, String TeacherID, int BlockID) {
+		String tableName = Lesson.class.getAnnotation(Table.class).name();
 		try {
-			String teacherIDColumn = this.getClass().getField("TeacherID").getAnnotation(Column.class).name();
-			String blockIDColumn = this.getClass().getField("BlockID").getAnnotation(Column.class).name();
-			String dateColumn = this.getClass().getField("date").getAnnotation(Column.class).name();
+			String teacherIDColumn = Lesson.class.getDeclaredField("teacherID").getAnnotation(Column.class).name();
+			String blockIDColumn =Lesson.class.getDeclaredField("blockID").getAnnotation(Column.class).name();
+			String dateColumn = Lesson.class.getDeclaredField("date").getAnnotation(Column.class).name();
+		
+			CriteriaBuilder builder = manager.getCriteriaBuilder();
+			CriteriaQuery<Lesson> query = builder.createQuery(Lesson.class);
+			Root<Lesson> from = query.from(Lesson.class);
+			
+			Predicate where = builder.and(
+					builder.equal(from.get("teacherID"), TeacherID),
+					builder.equal(from.get("blockID"), BlockID),
+					builder.equal(from.get("date"), date)
+					);
+			query = query.select(from).where(where);
+			
+			List<Lesson> result = manager.createQuery(query).getResultList();
 			
 		} catch (NoSuchFieldException | SecurityException e) {
 			e.printStackTrace();
 		}
-		
-		CriteriaBuilder builder = manager.getCriteriaBuilder();
-		CriteriaQuery<Lesson> query = builder.createQuery(Lesson.class);
-		Root<Lesson> from = query.from(Lesson.class);
 		return null;
 	}
 	

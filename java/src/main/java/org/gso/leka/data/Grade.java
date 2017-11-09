@@ -17,11 +17,11 @@ public class Grade {
 	@Column(name="n_note")
 	private String grade;
 	
-	@Column(name="n_bemerkung")
+	@Column(name="n_bemerkung", columnDefinition="text")
 	private String comment;
 
 	@Column(name="s_id")
-	private String LessonID;
+	private int LessonID;
 	@Transient
 	private Lesson Lesson;
 	

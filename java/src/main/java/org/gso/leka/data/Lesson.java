@@ -17,6 +17,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Root;
 
+import org.gso.leka.data.schoolClass.SchoolClass;
 import org.hibernate.annotations.Type;
 
 @Entity

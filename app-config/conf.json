@@ -4,5 +4,8 @@
             "host" : "ldap-dc1.gso",
             "port" : "389"     
         }
+    },
+    "httpServer": {
+    	"port" : "8080"
     }
 }

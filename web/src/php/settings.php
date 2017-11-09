@@ -9,6 +9,9 @@ return [
             'template_path' => __DIR__ . '/../../templates/',
             'cache_path' => __DIR__ . '/../../cache',
         ],
+        "sevice" => [
+            "base_url" => "localhost:8080"
+        ],
 
         // Monolog settings
         'logger' => [

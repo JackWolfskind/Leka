@@ -1,16 +1,7 @@
 package org.gso.leka.data.schoolClass;
 
-import java.sql.Date;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.EntityManager;
-import javax.persistence.Table;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-
-import org.gso.leka.data.Lesson;
 import org.gso.leka.data.Student;
 
 public class SchoolClass {
@@ -30,24 +21,7 @@ public class SchoolClass {
 		this.students = students;
 	}
 	
-	public void save(EntityManager manager) {
-		manager.getTransaction().begin();
-		try {
-			manager.persist(this);
-			manager.getTransaction().commit();
-		} catch (Exception e) {
-			manager.getTransaction().rollback();
-		}
-	}
-	
-	public static SchoolClass load(EntityManager manager, int ID) {
-		return manager.find(SchoolClass.class, ID);
-	}
-	
-	public static List<SchoolClass> loadAll(EntityManager manager) {
-		CriteriaBuilder builder = manager.getCriteriaBuilder();
-		CriteriaQuery<SchoolClass> query = builder.createQuery(SchoolClass.class);
-		Root<SchoolClass> from = query.from(SchoolClass.class);
-		return manager.createQuery(query).getResultList();
+	public static SchoolClass getClass(String ID) {
+		return null;
 	}
 }

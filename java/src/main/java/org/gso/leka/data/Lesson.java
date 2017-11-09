@@ -2,23 +2,17 @@ package org.gso.leka.data;
 
 import java.sql.Date;
 import java.util.List;
-import java.util.function.Predicate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Query;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Root;
 
 import org.gso.leka.data.schoolClass.SchoolClass;
-import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "schulstunde")

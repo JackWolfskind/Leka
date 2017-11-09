@@ -29,7 +29,7 @@ public class LessonReadHandler extends HttpHandler {
 					Main.entityManagerFactory.createEntityManager(), 
 					new Date(parameters.get("date").getAsLong()),
 					parameters.get("teacherID").getAsString(), 
-					parameters.get("blockID").getAsInt());
+					parameters.get("blockID").getAsInt()).get(0);
 		} else {
 			reply = HttpServer.newFixedLengthResponse(
 					Status.BAD_REQUEST.getDescription() + " - Not all manditory Fields Provided");

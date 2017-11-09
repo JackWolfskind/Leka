@@ -1,4 +1,8 @@
-package org.gso.leka.data;
+package org.gso.leka.data.student;
+
+import java.util.List;
+
+import org.gso.leka.data.schoolClass.SchoolClass;
 
 public class Student {
 	private String ID;
@@ -26,6 +30,18 @@ public class Student {
 	}
 	public void setName(String name) {
 		Name = name;
+	}
+
+	public static List<Student> getAll() {
+		return null;
+	}
+
+	public static Student get(String asString) {
+		return null;
+	}
+	
+	public static List<Student> getAll(String ClassID) {
+		return null;
 	}
 	
 	

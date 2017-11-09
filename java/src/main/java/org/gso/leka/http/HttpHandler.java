@@ -1,11 +1,35 @@
 package org.gso.leka.http;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import fi.iki.elonen.NanoHTTPD.IHTTPSession;
 import fi.iki.elonen.NanoHTTPD.Response;
 
 public abstract class HttpHandler implements IHttpHandler {
 	
 	private String route;
+	
+	public static Map<String, JsonElement> parseParameters(String json) {
+		Map<String, JsonElement> reply = new HashMap<>();
+		JsonParser parser = new JsonParser();
+		JsonObject parameters = parser.parse(json).getAsJsonObject();
+		Set<Entry<String, JsonElement>> entry = parameters.entrySet();
+		
+		Iterator<Entry<String, JsonElement>> iterator = entry.iterator();
+		
+		while(iterator.hasNext()) {
+			Entry<String, JsonElement> ent = iterator.next();
+			reply.put(ent.getKey(), ent.getValue());
+		}
+		return reply;
+	} 
 	
 	public HttpHandler(String route) {
 		this.route = route;

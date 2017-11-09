@@ -1,6 +1,7 @@
 <?php
 
 use Leka\Middleware\LoggerMiddleware;
+
 // DIC configuration
 
 $container = $app->getContainer();

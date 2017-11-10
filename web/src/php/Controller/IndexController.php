@@ -54,11 +54,11 @@ class IndexController extends BaseControlller {
                 . "<th>Thema</th>"
                 . "</tr></thead>"
                 . "<tbody>"
-                . "<tr><td>1/2</td><td cellspan=3></td></tr>"
-                . "<tr><td>3/4</td><td cellspan=3></td></tr>"
-                . "<tr><td>5/6</td><td cellspan=3></td></tr>"
-                . "<tr><td>7/8</td><td cellspan=3></td></tr>"
-                . "<tr><td>9/10</td><td cellspan=3></td></tr>"
+                . "<tr><td>1/2</td><td colspan=3></td></tr>"
+                . "<tr><td>3/4</td><td colspan=3></td></tr>"
+                . "<tr><td>5/6</td><td colspan=3></td></tr>"
+                . "<tr><td>7/8</td><td colspan=3></td></tr>"
+                . "<tr><td>9/10</td><td colspan=3></td></tr>"
                 . "</tr></tbody>";
                 
         $daten_montag=$daten_template;
@@ -68,7 +68,7 @@ class IndexController extends BaseControlller {
         $daten_freitag=$daten_template;
 
         
-        $woche=date("W Y");
+        $woche=date("W");
                 
         $args["Daten"]=array($woche, $montag, $dienstag, $mittwoch, $donnerstag, $freitag,$daten_montag,$daten_dienstag,$daten_mittwoch,$daten_donnerstag,$daten_freitag);
         

@@ -1,8 +1,8 @@
 var logger = {
     post: function () {
-        var username = $("username");
-        var passsword = $("password");
-        var lastPath = $("last_path");
+        var username = $("#username").val();
+        var passsword = $("#password").val();
+        var lastPath = $("#last_path").val();
         debugger;
         $.post("/login", {
             username: username,

@@ -1,30 +1,68 @@
 {% extends "layout.twig" %}
 {% block body %}
-    <table width="100%">
-        <tbody>
+    <center><h1>Kalenderwoche {{Daten[0]}}, {{Daten[1]}} - {{Daten[5]}} </h1></center>
+    <div class="Montag" style="float: left;border: 1px solid darkorange; border-radius: 8px;" width="45%">
+        <table width="600">
             <tr>
-                <td style="transform: rotate(-90deg);">Montag</td>
-                <td width="45%">1<br>2<br>3<br>4<br>5<br></td>
-                <td width="2%">&nbsp;</td>    
-                <td width="45%"></td>
-                <td style="transform: rotate(90deg);">Donnerstag</td>
+                <td style="transform: rotate(-90deg)">Montag</td>
+                <td width="90%">
+                    <table class="greyGridTable" width="100%">
+                        {{Daten[6]|raw}}
+                    </table>
+                </td>
             </tr>
+        </table>
+    </div>
+                    
+    <div class="Donnerstag" style="float: right;border: 1px solid darkorange; border-radius: 8px;" width="45%">
+        <table width="600">
             <tr>
-                <td style="transform: rotate(-90deg);">Dienstag</td>
-                <td width="45%">1<br>2<br>3<br>4<br>5<br></td>
-                <td width="2%">&nbsp;</td>    
-                <td width="45%"></td>
-                <td style="transform: rotate(90deg);">Freitag</td>
+               <td width="90%">
+                    <table class="greyGridTable" width="100%">
+                        {{Daten[9]|raw}}
+                    </table>
+                </td>
+                <td style="transform: rotate(90deg)">Donnerstag</td>
             </tr>
+        </table>
+    </div>
+                    </br>                
+    <div class="Dienstag" style="float: left;border: 1px solid darkorange; border-radius: 8px;" width="45%">
+        <table width="600">
             <tr>
-                <td style="transform: rotate(-90deg);">Mittwoch</td>
-                <td width="45%">1<br>2<br>3<br>4<br>5<br></td>
-                <td width="2%">&nbsp;</td>    
-                <td width="45%"></td>
-                <td style="transform: rotate(90deg);">&nbsp;</td>
+                <td style="transform: rotate(-90deg)">Dienstag</td>
+                <td width="90%">
+                    <table class="greyGridTable" width="100%">
+                        {{Daten[7]|raw}}
+                    </table>
+                </td>
             </tr>
-            
-
-        </tbody>
-    </table>
+        </table>
+    </div>
+    
+    <div class="Freitag" style="float: right;border: 1px solid darkorange; border-radius: 8px;" width="45%">
+        <table width="600">
+            <tr>   
+                <td width="90%">
+                    <table class="greyGridTable" width="100%">
+                        {{Daten[10]|raw}}
+                    </table>
+                </td>
+                <td style="transform: rotate(90deg)">Freitag</td>
+            </tr>
+        </table>
+    </div>
+    </br>
+    <div class="Mittwoch" style="float: left;border: 1px solid darkorange; border-radius: 8px;" width="45%">
+        <table width="600">
+            <tr>
+                <td style="transform: rotate(-90deg)">Mittwoch</td>
+                <td width="90%">
+                <table class="greyGridTable" width="100%">
+                    {{Daten[8]|raw}}
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
 {%endblock%}

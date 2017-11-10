@@ -11,6 +11,8 @@ import org.gso.leka.data.block.BlockListHandler;
 import org.gso.leka.data.block.BlockReadHandler;
 import org.gso.leka.data.grade.GradeListHandler;
 import org.gso.leka.data.grade.GradeReadHandler;
+import org.gso.leka.data.lesson.LessonListHandler;
+import org.gso.leka.data.lesson.LessonReadHandler;
 import org.gso.leka.data.schoolClass.SchoolClass;
 import org.gso.leka.data.schoolClass.SchoolClassListHandler;
 import org.gso.leka.data.schoolClass.SchoolClassReadHandler;
@@ -31,7 +33,8 @@ public class Main {
 		server.registerRouter("schoolclass", new SchoolClassReadHandler(), new SchoolClassListHandler());
 		server.registerRouter("block", new BlockReadHandler(), new BlockListHandler());
 		server.registerRouter("grade", new GradeReadHandler(), new GradeListHandler());
-
+		server.registerRouter("lesson", new LessonReadHandler(), new LessonListHandler());
+		
 		server.start();
 	}
 

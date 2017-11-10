@@ -1,4 +1,4 @@
-package org.gso.leka.data.student;
+package org.gso.leka.data.teacher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,16 +9,15 @@ import org.gso.leka.http.HttpServer;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.unboundid.ldap.sdk.LDAPException;
 
 import fi.iki.elonen.NanoHTTPD.IHTTPSession;
 import fi.iki.elonen.NanoHTTPD.Response;
 import fi.iki.elonen.NanoHTTPD.Response.Status;
 
 
-public class StudentListHandler extends HttpHandler {
+public class TeacherListHandler extends HttpHandler {
 	
-	public StudentListHandler() {
+	public TeacherListHandler() {
 		super("list");
 	}
 
@@ -30,14 +29,9 @@ public class StudentListHandler extends HttpHandler {
 		if (parameters.containsKey("schoolclass")) {
 			
 		}
-		try {
-			for(Student stu : parameters.containsKey("schoolclass")? Student.getAll(parameters.get("schoolclass").getAsString()) : Student.getAll()) {
-				classIDs.add(stu.getID());
-			}
-		} catch (LDAPException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		//for(Student stu : parameters.containsKey("schoolclass")? Student.getAll(parameters.get("schoolclass").getAsString()) : Student.getAll()) {
+		//	classIDs.add(stu.getID());
+		//}
 		
 		Response reply = HttpServer.newFixedLengthResponse(new Gson().toJson(classIDs));
 		

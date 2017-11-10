@@ -90,4 +90,86 @@ public class Lesson {
 		Root<Lesson> from = query.from(Lesson.class);
 		return manager.createQuery(query).getResultList();
 	}
+
+	public int getLessonID() {
+		return LessonID;
+	}
+
+	public void setLessonID(int lessonID) {
+		LessonID = lessonID;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public String getTopic() {
+		return topic;
+	}
+
+	public void setTopic(String topic) {
+		this.topic = topic;
+	}
+
+	public String getTeacherID() {
+		return teacherID;
+	}
+
+	public void setTeacherID(String teacherID) {
+		this.teacherID = teacherID;
+	}
+
+	public Teacher getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
+
+	public String getClassID() {
+		return classID;
+	}
+
+	public void setClassID(String classID) {
+		this.classID = classID;
+	}
+
+	public SchoolClass getSchoolclass() {
+		return schoolclass;
+	}
+
+	public void setSchoolclass(SchoolClass schoolclass) {
+		this.schoolclass = schoolclass;
+	}
+
+	public int getBlockID() {
+		return blockID;
+	}
+
+	public void setBlockID(int blockID) {
+		this.blockID = blockID;
+	}
+
+	public Block getBlock() {
+		return block;
+	}
+
+	public void setBlock(Block block) {
+		this.block = block;
+	}
+
+	public String getPermission() {
+		return permission;
+	}
+
+	public void setPermission(String permission) {
+		this.permission = permission;
+	}
+	
+	
 }

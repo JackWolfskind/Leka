@@ -1,8 +1,12 @@
 package org.gso.leka.data.student;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.gso.leka.LDAPHelper;
 import org.gso.leka.data.schoolClass.SchoolClass;
+
+import com.unboundid.ldap.sdk.LDAPException;
 
 public class Student {
 	private String ID;
@@ -40,8 +44,8 @@ public class Student {
 		return null;
 	}
 	
-	public static List<Student> getAll(String ClassID) {
-		return null;
+	public static List<Student> getAll(String ClassID) throws LDAPException {
+		return new LDAPHelper().studentsOfClass(ClassID);
 	}
 	
 	

@@ -1,12 +1,16 @@
 package org.gso.leka;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
+import com.sun.corba.se.impl.orb.AppletDataCollector;
 
 public class AppConfig {
 	
@@ -40,12 +44,14 @@ public class AppConfig {
 	 * Wird von der initialise() aufgerufen
 	 * @see initialise
 	 * @param path
+	 * @throws FileNotFoundException 
 	 */
-	public void loadConfig(String path) {
-		InputStream isr = getClass().getResourceAsStream("/conf.json");
-		JsonReader reader = new JsonReader(new InputStreamReader(isr));
+	public void loadConfig(String path) throws FileNotFoundException {
+		InputStream isr = getClass().getResourceAsStream("conf.json");
+		//InputStream isr = new FileInputStream(System.getProperty("user.dir")+"\\config\\conf.json");
+		//JsonReader reader = new JsonReader(new InputStreamReader(isr));
 		JsonParser parser = new JsonParser();
-		config = parser.parse(reader).getAsJsonObject();
+		config = parser.parse("{'credentials': {'ldap' : {'host' : 'ldap-dc1.gso','port' : '389'}},'httpServer': {'port' : '8080'}}").getAsJsonObject();
 	}
 	
 	/**

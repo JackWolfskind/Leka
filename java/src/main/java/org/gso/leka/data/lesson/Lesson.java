@@ -67,9 +67,7 @@ public class Lesson {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery<Lesson> query = builder.createQuery(Lesson.class);
 		Root<Lesson> from = query.from(Lesson.class);
-
 		List<Predicate> predicates = new ArrayList<>();
-
 		if (date != null) {
 			predicates.add(builder.equal(from.get("date"), date));
 		}

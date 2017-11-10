@@ -3,6 +3,18 @@
     Created on : 06.11.2017, 14:34:40
     Author     : cziermann
 */
+div.Montag{border: 1px solid darkorange; border-radius: 8px;}
+div.Dienstag{border: 1px solid darkorange; border-radius: 8px;}
+div.Mittwoch{border: 1px solid darkorange; border-radius: 8px;}
+div.Donnerstag{border: 1px solid darkorange; border-radius: 8px;}
+div.Freitag{border: 1px solid darkorange; border-radius: 8px;}
+
+.all {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
 
 table.greyGridTable {
     border: 2px solid #FFFFFF;

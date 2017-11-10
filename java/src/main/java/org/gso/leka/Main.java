@@ -7,6 +7,10 @@ import javax.naming.NamingException;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.gso.leka.data.block.BlockListHandler;
+import org.gso.leka.data.block.BlockReadHandler;
+import org.gso.leka.data.grade.GradeListHandler;
+import org.gso.leka.data.grade.GradeReadHandler;
 import org.gso.leka.data.schoolClass.SchoolClass;
 import org.gso.leka.data.schoolClass.SchoolClassListHandler;
 import org.gso.leka.data.schoolClass.SchoolClassReadHandler;
@@ -23,12 +27,10 @@ public class Main {
 
 		server = new HttpServer(AppConfig.getConfig().getIntFromPath("httpServer/port"));
 
-		HttpRouter ClassRouter = new HttpRouter("schoolclass");
-		ClassRouter.registerHandler(new SchoolClassReadHandler());
-		ClassRouter.registerHandler(new SchoolClassListHandler());
-
-		server.getRouter().registerHandler(ClassRouter);
-		System.out.println(server.getListeningPort());
+		//registering router
+		server.registerRouter("schoolclass", new SchoolClassReadHandler(), new SchoolClassListHandler());
+		server.registerRouter("block", new BlockReadHandler(), new BlockListHandler());
+		server.registerRouter("grade", new GradeReadHandler(), new GradeListHandler());
 
 		server.start();
 	}

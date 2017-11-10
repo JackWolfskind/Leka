@@ -35,5 +35,18 @@ public class HttpServer extends NanoHTTPD {
 	public HttpRouter getRouter() {
 		return root;
 	}
+	
+	/**
+	 * Registers a new Router with the given Handlers
+	 * @param route The route the router should respond to
+	 * @param handlers The handlers that should be registered with the router
+	 */
+	public void registerRouter(String route, IHttpHandler...handlers) {
+		HttpRouter router = new HttpRouter(route);
+		for (IHttpHandler handler : handlers) {
+			router.registerHandler(handler);
+		}
+		root.registerHandler(router);
+	}
 
 }

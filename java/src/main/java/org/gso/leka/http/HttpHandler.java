@@ -15,6 +15,11 @@ import com.google.gson.JsonParser;
 import fi.iki.elonen.NanoHTTPD.IHTTPSession;
 import fi.iki.elonen.NanoHTTPD.Response;
 
+/**
+ * A HTTP Handler. Superclass for Routing Endpoints in a HTTP Routing Network.
+ * @author Lukas Prediger
+ *
+ */
 public abstract class HttpHandler implements IHttpHandler {
 	
 	private String route;
@@ -33,6 +38,11 @@ public abstract class HttpHandler implements IHttpHandler {
 		return null;
 	}
 	
+	/**
+	 * Parses a JSON object into a Map
+	 * @param json
+	 * @return A Map with the JSON Elements and their identifiers as keys
+	 */
 	public static Map<String, JsonElement> parseParameters(String json) {
 		Map<String, JsonElement> reply = new HashMap<>();
 		JsonParser parser = new JsonParser();

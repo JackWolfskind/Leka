@@ -1,4 +1,31 @@
 {% extends "layout.twig" %}
 {% block body %}
-    zeig mir was schönes
+    <form>
+        <h2>Neue Stunde eintragen</h2>
+        <div class="form-group">
+            <label for="Stunde">Datum: </label>
+            <input id="Datum" name="Datum" placeholder="Datum" value="" required autofocus class="form-control">
+            <label for="Stunde">Stunde: </label>
+            <input id="stunde" name="stunde" placeholder="Stunde" value="" required autofocus class="form-control">
+            <label for="Thema">Klasse: </label>
+            <select name="Klasse">
+                {% for klasse in klassen%}
+                    <option value="{{klasse}}">{{klasse}}</option>
+                {% endfor %}
+            </select>
+            <label for="Thema">Thema: </label>
+            <input type="thema" id="thema" name="thema" placeholder="Thema" required class="form-control">
+        </div>
+         <div class="form-group">
+            {% for schueler in klassenschueler%}
+                <label for="Schueler">Sch&uuml;er: {{schueler}}</label>
+                <label for="Note_{{schueler}}">Note: </label>
+                <input id="Note_{{schueler}}" name="Note_{{schueler}}" placeholder="Note" value="" required autofocus class="form-control">
+                <label for="Bemerkung_{{schueler}}">Bemerkung: </label>
+                <input id="Bemerkung_{{schueler}}" name="Bemerkung_{{schueler}}" placeholder="Bemerkung" value="" required autofocus class="form-control">
+            {% endfor %}
+
+         </div>
+        <button onclick="logger.post();" class="btn btn-default">Login</button>
+    </form>
 {% endblock %}

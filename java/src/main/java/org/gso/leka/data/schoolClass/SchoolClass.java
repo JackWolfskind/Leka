@@ -1,15 +1,12 @@
 package org.gso.leka.data.schoolClass;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.gso.leka.LDAPHelper;
 import org.gso.leka.data.student.Student;
 
 import com.unboundid.ldap.sdk.LDAPException;
-
-import sun.security.provider.certpath.ldap.LDAPCertStoreHelper;
 
 public class SchoolClass {
 	private String ID;
